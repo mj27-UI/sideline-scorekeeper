@@ -24,7 +24,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Prepare static site
         run: |
-          cat sideline-scorekeeper-v2.zip.b64.part* | base64 --decode > sideline-scorekeeper-v2.zip
           unzip -t sideline-scorekeeper-v2.zip
           mkdir -p _site
           unzip -q sideline-scorekeeper-v2.zip
