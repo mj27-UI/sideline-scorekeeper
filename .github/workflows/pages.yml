@@ -24,9 +24,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Prepare static site
         run: |
+          set -e
           unzip -t sideline-scorekeeper-v2.zip
           mkdir -p _site
           unzip -q sideline-scorekeeper-v2.zip
+          cat .deploy-patches/update-*.xz.b64 | base64 --decode | xz --decompress > /tmp/sideline-update.patch
+          patch --batch --forward -p1 -d sideline-scorekeeper < /tmp/sideline-update.patch
           cp -R sideline-scorekeeper/. _site/
       - name: Configure Pages
         uses: actions/configure-pages@v5
